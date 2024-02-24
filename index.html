@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<button id="fullscreen">Go Fullscreen</button>
+<canvas id="myCanvas" style="border:1px solid #000000;">
+Your browser does not support the HTML canvas tag.</canvas>
+
+<script>
+const canvas = document.getElementById("myCanvas");
+const ctx = canvas.getContext("2d");
+let painting = false;
+
+function startPainting(e) {
+  painting = true;
+  draw(e);
+}
+
+function stopPainting() {
+  painting = false;
+  ctx.beginPath();
+}
+
+function draw(e) {
+  if (!painting) return;
+  ctx.lineWidth = 5;
+  ctx.lineCap = "round";
+  ctx.lineTo(e.clientX, e.clientY);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(e.clientX, e.clientY);
+}
+
+// Resize the canvas to fill the window
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+// Request fullscreen mode for the canvas
+function requestFullscreen() {
+  if (canvas.requestFullscreen) {
+    canvas.requestFullscreen();
+  } else if (canvas.mozRequestFullScreen) { // Firefox
+    canvas.mozRequestFullScreen();
+  } else if (canvas.webkitRequestFullscreen) { // Chrome and Safari
+    canvas.webkitRequestFullscreen();
+  }
+}
+
+// Add event listeners
+window.addEventListener("resize", resizeCanvas);
+canvas.addEventListener("mousedown", startPainting);
+canvas.addEventListener("mouseup", stopPainting);
+canvas.addEventListener("mousemove", draw);
+document.getElementById("fullscreen").addEventListener("click", requestFullscreen);
+
+// Call resizeCanvas once to fill the window
+resizeCanvas();
+</script>
+
+</body>
+</html>
