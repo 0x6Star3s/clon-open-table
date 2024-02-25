@@ -62,7 +62,7 @@ export default function ReservationCard({
 
   // md:max-w-[250px]
   return (
-    <div className="md:fixed w-full md:w-fit md:max-w-[250px]  bg-white rounded p-3 shadow">
+    <div className="md:fixed w-full md:w-full md:max-w-[245px] bg-white rounded p-3 shadow">
       <div className="text-center border-b pb-2 font-bold">
         <h4 className="mr-7 text-lg">Make a Reservation </h4>
       </div>
